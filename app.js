@@ -8,11 +8,7 @@
 // var appRouter = require('./routes/appRouter');
 //
 //
-// /// DB //
-// var db = mongoose.connect('mongodb://10.9.12.97:27017/device_management');
-// mongoose.connection.once('connected', function() {
-//     console.log("Connected to database -**** device_management **** ");
-// });
+
 //
 //
 // var app = express();
@@ -72,21 +68,20 @@ bodyParser = require('body-parser');
 methodOverride = require('method-override');
 
 // config files
+/// DB //
 db = require('./config/db');
 
 // connect to our mongoDB database
-// (uncomment after you enter in your own credentials in config/db.js)
 mongoose.connect(db.url);
+mongoose.connection.once('connected', function() {
+    console.log("Connected to database -**** device_management **** ");
+});
 
-// parse application/json
 app.use(bodyParser.json());
-
-// parse application/vnd.api+json as json
 app.use(bodyParser.json({
     type: 'application/vnd.api+json'
 }));
 
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
     extended: true
 }));
