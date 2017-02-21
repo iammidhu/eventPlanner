@@ -1,48 +1,88 @@
-var express, app, bodyParser, methodOverride, db, port;
+/**
+ * Module dependencies.
+ */
 
-express = require('express');
-app = express();
-bodyParser = require('body-parser');
-methodOverride = require('method-override');
+var app = require('./app');
+var debug = require('debug')('devicemanagement:server');
+var http = require('http');
 
-// config files
-db = require('./config/db');
+/**
+ * Get port from environment and store in Express.
+ */
 
-// set our port
-port = process.env.PORT || 8080;
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
 
-// connect to our mongoDB database
-// (uncomment after you enter in your own credentials in config/db.js)
-// mongoose.connect(db.url);
+/**
+ * Create HTTP server.
+ */
 
-// parse application/json
-app.use(bodyParser.json());
+var server = http.createServer(app);
 
-// parse application/vnd.api+json as json
-app.use(bodyParser.json({
-    type: 'application/vnd.api+json'
-}));
+/**
+ * Listen on provided port, on all network interfaces.
+ */
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
-// override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
-app.use(methodOverride('X-HTTP-Method-Override'));
+/**
+ * Normalize a port into a number, string, or false.
+ */
 
-// set the static files location /public/img will be /img for users
-app.use(express.static(__dirname + '/public'));
+function normalizePort(val) {
+  var port = parseInt(val, 10);
 
-// routes ==================================================
-require('./app/routes')(app); // configure our routes
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
 
-// start app ===============================================
-// startup our app at http://localhost:8080
-app.listen(port);
+  if (port >= 0) {
+    // port number
+    return port;
+  }
 
-// shoutout to the user
-console.log('Magic happens on port ' + port);
+  return false;
+}
 
-// expose app
-exports = module.exports = app;
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}

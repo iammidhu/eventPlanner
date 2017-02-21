@@ -15,13 +15,10 @@ eventSchema = new Schema({
     venue: String,
     speaker: String,
     amount: String,
-    status: Boolean,
-    ref: "Venue",
-    ref: "Speaker"
+    status: Boolean
 });
 
 eventModel = mongoose.model('Event', eventSchema);
 
 // make this available to our users in our Node applications
 module.exports = eventModel;
-});

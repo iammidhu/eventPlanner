@@ -17,4 +17,3 @@ Venue = mongoose.model('Venue', venueSchema);
 
 // make this available to our users in our Node applications
 module.exports = Venue;
-});

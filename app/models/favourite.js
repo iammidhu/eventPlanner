@@ -18,4 +18,3 @@ favouriteSchema = new Schema({
 Favourite = mongoose.model('Favourite', favouriteSchema);
 
 module.exports = Favourite;
-});
