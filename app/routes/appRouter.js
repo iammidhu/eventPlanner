@@ -1,17 +1,19 @@
 var auth, speaker, events, venue;
+var express = require('express');
+var router = express.Router();
 
 events = require('../routes/eventRoutes');
 
-module.exports = function(app) {
-    app.get('/', function(req, res) {
-        res.sendfile('./public/views/index.html'); // load our public/index.html file
-    });
+router.get('/', function(req, res) {
+    res.sendfile('./public/views/index.html'); // load our public/index.html file
+});
 
-    app.use('/api/events/', events);
-    app.use('/api/speakers/', function(req, res) {
-        console.log("Go to speaker");
-    });
-    app.get('/api/venue/', function(req, res) {
-        console.log("Go to venue");
-    });
-};
+router.use('/api/events/', events);
+router.get('/api/speakers/', function(req, res) {
+    console.log("Go to speaker");
+});
+router.get('/api/venue/', function(req, res) {
+    console.log("Go to venue");
+});
+
+module.exports = router
