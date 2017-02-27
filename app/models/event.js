@@ -9,8 +9,14 @@ eventSchema = new Schema({
         required: true,
         unique: true
     },
-    eventDate: Date,
-    eventName: String,
+    eventDate: {
+        type: Date,
+        default: new Date().getTime()
+    }
+    eventName: {
+        type: String,
+        required: true
+    },
     eventDesc: String,
     venue: String,
     speaker: String,
@@ -20,5 +26,4 @@ eventSchema = new Schema({
 
 eventModel = mongoose.model('Event', eventSchema);
 
-// make this available to our users in our Node applications
 module.exports = eventModel;
