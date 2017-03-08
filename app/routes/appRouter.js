@@ -7,15 +7,21 @@ events = require('../routes/eventRoutes');
 speaker = require('../routes/speakerRoutes');
 
 router.get('/', function(req, res) {
-    res.sendfile('./public/views/index.html');
+    res.json({
+        message: 'hooray! welcome to our api!'
+    });
 });
 
 router.use('/api/v1/events/', events);
-router.get('/api/speakers/', function(req, res) {
-    console.log("Go to speaker");
+router.get('/api/speakers', function(req, res) {
+    res.json({
+        message: 'hooray! welcome to our api!'
+    });
 });
-router.get('/api/venue/', function(req, res) {
-    console.log("Go to venue");
+router.post('/api/venue', function(req, res) {
+    res.json({
+        message: 'hooray! welcome to our api!'
+    });
 });
 
 module.exports = router

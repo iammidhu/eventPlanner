@@ -4,10 +4,22 @@ var EventContorller = {};
 
 
 EventContorller.getEventList = function() {
-    console.log("get all evenets");
+    res.json({
+        message: 'hooray! welcome to our api!'
+    });
 }
 
-EventContorller.createAnEvent = function(events) {
+EventContorller.createAnEvent = function(events, callbk) {
+    console.log(events);
+    // var obj = events.body;
+    // var model = new eventModel(obj);
+    // model.save(function(err) {
+    //     if (err) {
+    //         res.send("error");
+    //         return;
+    //     }
+    //     res.send("created");
+    // });
     eventModel.create(events, function(err, createdEvent) {
         if (err) {
             console.log("error in create device ");
@@ -15,7 +27,7 @@ EventContorller.createAnEvent = function(events) {
         } else {
             err = null;
             console.log(createdEvent);
-            callbk(apiResponse.success(thisDevice));
+            callbk(apiResponse.success(createdEvent));
         }
     });
 }

@@ -1,6 +1,6 @@
 //variable declaration
 var express, eventController, router;
-
+console.log("hi");
 express = require('express');
 eventController = require('../controllers/eventController');
 router = express.Router();
@@ -20,7 +20,7 @@ router.post('/edit_event', function(req, res, next) {
 });
 
 router.get('/event_listing', function(req, res, next) {
-    eventController.getAllEvents(function(data) {
+    eventController.getEventList(function(data) {
         res.json(data);
     });
 });

@@ -3,16 +3,13 @@ var mongoose, Schema, eventSchema, eventModel;
 mongoose = require('mongoose');
 Schema = mongoose.Schema;
 
+var objectId = mongoose.Types.ObjectId();
+
 eventSchema = new Schema({
-    id: {
-        type: String,
-        required: true,
-        unique: true
-    },
     eventDate: {
-        type: Date,
+        type: String,
         default: new Date().getTime()
-    }
+    },
     eventName: {
         type: String,
         required: true
