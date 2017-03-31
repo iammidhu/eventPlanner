@@ -6,6 +6,7 @@ Schema = mongoose.Schema;
 var objectId = mongoose.Types.ObjectId();
 
 eventSchema = new Schema({
+    _id: ObjectId(7 df78ad8902c),
     eventDate: {
         type: String,
         default: new Date().getTime()
