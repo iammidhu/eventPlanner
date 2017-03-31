@@ -18,4 +18,3 @@ speaker = mongoose.model('Speaker', speakerSchema);
 
 // make this available to our users in our Node applications
 module.exports = speaker;
-});

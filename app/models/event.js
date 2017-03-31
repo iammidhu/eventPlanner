@@ -3,25 +3,25 @@ var mongoose, Schema, eventSchema, eventModel;
 mongoose = require('mongoose');
 Schema = mongoose.Schema;
 
+var objectId = mongoose.Types.ObjectId();
+
 eventSchema = new Schema({
-    id: {
+    _id: ObjectId(7 df78ad8902c),
+    eventDate: {
         type: String,
-        required: true,
-        unique: true
+        default: new Date().getTime()
     },
-    eventDate: Date,
-    eventName: String,
+    eventName: {
+        type: String,
+        required: true
+    },
     eventDesc: String,
     venue: String,
     speaker: String,
     amount: String,
-    status: Boolean,
-    ref: "Venue",
-    ref: "Speaker"
+    status: Boolean
 });
 
 eventModel = mongoose.model('Event', eventSchema);
 
-// make this available to our users in our Node applications
 module.exports = eventModel;
-});
